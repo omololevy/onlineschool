@@ -28,9 +28,9 @@ class Fanlar(models.Model):
 
 
 class Mavzular(models.Model):
+    fan = models.ForeignKey(Fanlar, on_delete=models.CASCADE)
     name = models.CharField(max_length=100)
     date = models.DateField()
-    fan = models.ForeignKey(Fanlar, on_delete=models.CASCADE)
 
     def __str__(self) -> str:
         return self.name
@@ -38,3 +38,25 @@ class Mavzular(models.Model):
     class Meta:
         verbose_name = "Mavzu"
         verbose_name_plural = "Mavzular"
+
+class Amaliyot(models.Model):
+    mavzu = models.ForeignKey(Mavzular, on_delete=models.CASCADE)
+
+    def __str__(self) -> str:
+        return str(self.mavzu.name) + " maruza darsi" + self.name
+
+    class Meta:
+        verbose_name = "Maruza dars"
+        verbose_name_plural = "Maruza darslar"
+
+class Maruza(models.Model):
+    mavzu = models.ForeignKey(Mavzular, on_delete=models.CASCADE)
+
+    def __str__(self) -> str:
+        return str(self.mavzu.name) + " amaliy darsi" + self.name
+
+    class Meta:
+        verbose_name = "Amaliy mashq"
+        verbose_name_plural = "Amaliy mashqlar"
+
+
